@@ -1,6 +1,6 @@
 const CURRENT_USER_KEY = "bbb_current_user";
 const TOKEN_KEY = "bbb_token";
-export const API_BASE = "http://localhost:5000/api";
+export const API_BASE = `${import.meta.env.VITE_API_URL}/api`;
 
 
 export function getCurrentUser() {
