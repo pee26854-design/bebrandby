@@ -1,6 +1,6 @@
 const CURRENT_USER_KEY = "bbb_current_user";
 const TOKEN_KEY = "bbb_token";
-const API_URL = "https://bebrandby-backend.onrender.com/api";
+export const API_URL = "https://bebrandby-backend.onrender.com/api";
 
 export function getCurrentUser() {
   const raw = localStorage.getItem(CURRENT_USER_KEY);
@@ -31,44 +31,38 @@ export function getAuthHeaders() {
 
 export async function registerUser(payload) {
   try {
-    const res = await fetch(`${API_URL}/auth/register`, {   // ✅ ใช้ fetch
+    const res = await fetch(`${API_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
     });
 
     const data = await res.json();
-
     if (!data.ok) return { ok: false, message: data.message || "Register failed" };
 
     setCurrentUser(data.user);
     setAuthToken(data.token);
-
     return { ok: true, user: data.user };
-  } catch (err) {
-    console.error(err);
+  } catch {
     return { ok: false, message: "Register failed" };
   }
 }
 
 export async function loginUser({ usernameOrEmail, password }) {
   try {
-    const res = await fetch(`${API_URL}/auth/login`, {   // ✅ ใช้ fetch
+    const res = await fetch(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ usernameOrEmail, password }),
     });
 
     const data = await res.json();
-
     if (!data.ok) return { ok: false, message: data.message || "Invalid credentials" };
 
     setCurrentUser(data.user);
     setAuthToken(data.token);
-
     return { ok: true, user: data.user };
-  } catch (err) {
-    console.error(err);
+  } catch {
     return { ok: false, message: "Login failed" };
   }
 }

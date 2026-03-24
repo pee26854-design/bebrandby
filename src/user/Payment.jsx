@@ -99,7 +99,7 @@ export default function Payment() {
       },
     };
 
-    const orderRes = await fetch(ORDER_API_URL, {
+    const orderRes = await fetch(`${API_URL}/orders`, {
       method: "POST",
       headers: { "Content-Type": "application/json", ...getAuthHeaders() },
       body: JSON.stringify(apiPayload),
@@ -131,18 +131,18 @@ export default function Payment() {
     localStorage.removeItem(CART_KEY);
 
     if (currentUser?.email) {
-      fetch(EMAIL_API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", ...getAuthHeaders() },
-        body: JSON.stringify({
-          toEmail: currentUser.email,
-          name: currentUser.name,
-          orderId: localOrderId,
-          totalPrice,
-          depositAmount,
-          remainingAmount,
-        }),
-      }).catch(() => {});
+     fetch(`${API_URL}/email`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+    body: JSON.stringify({
+    toEmail: currentUser.email,
+    name: currentUser.name,
+    orderId: localOrderId,
+    totalPrice,
+    depositAmount,
+    remainingAmount,
+  }),
+});
     }
 
     setTimeout(() => {
