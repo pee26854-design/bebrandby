@@ -1,6 +1,7 @@
+import authRequired from "./middleware/auth.js";
+
 const express = require("express");
 const sgMail = require("@sendgrid/mail");
-const { authRequired } = require("../middleware/auth");
 
 const router = express.Router();
 
