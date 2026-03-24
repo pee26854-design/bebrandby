@@ -1,25 +1,27 @@
 import express from "express";
 import cors from "cors";
-
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 
 dotenv.config();
 
-const authRoutes = require("./routes/auth");
-const userRoutes = require("./routes/users");
-const productRoutes = require("./routes/products");
-const orderRoutes = require("./routes/orders");
-const emailRoutes = require("./routes/email");
-
 const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("API running");
+});
+
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
+});
+
 app.use(cors({
   origin: [
     "http://localhost:5173",
     "https://bebrandby.vercel.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
 
