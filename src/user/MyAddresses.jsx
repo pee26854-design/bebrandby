@@ -20,7 +20,7 @@ export default function MyAddresses() {
 
     try {
       setLoading(true);
-      const res = await import(`${API_URL}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (!data.ok) {
         setError(data.message || "Failed to load addresses");
