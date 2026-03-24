@@ -1,4 +1,5 @@
-﻿const express = require("express");
+﻿import userRoutes from "./routes/user.js";
+const express = require("express");
 const pool = require("../db");
 const { authRequired } = require("../middleware/auth");
 
@@ -91,4 +92,4 @@ router.delete("/me/addresses/:id", authRequired, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

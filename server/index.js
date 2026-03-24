@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import productRoutes from "./routes/products.js";
+import orderRoutes from "./routes/orders.js";
+import emailRoutes from "./routes/email.js";
 dotenv.config();
 
 const app = express();

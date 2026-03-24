@@ -1,3 +1,5 @@
+
+import { authRequired, adminRequired } from "../middleware/auth.js";
 const express = require("express");
 const pool = require("../db");
 const { authRequired, adminRequired } = require("../middleware/auth");
