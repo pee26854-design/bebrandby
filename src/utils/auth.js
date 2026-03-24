@@ -1,6 +1,6 @@
 const CURRENT_USER_KEY = "bbb_current_user";
 const TOKEN_KEY = "bbb_token";
-const API_URL = "https://bebrandby-backend.onrender.com/api";
+export const API_URL = "https://bebrandby-backend.onrender.com/api";
 
 export function getCurrentUser() {
   const raw = localStorage.getItem(CURRENT_USER_KEY);
