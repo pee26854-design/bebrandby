@@ -11,7 +11,7 @@ function loadCart() {
   return raw ? JSON.parse(raw) : [];
 }
 
-const API_BASE = "http://localhost:5000/api";
+const API_URL = "http://localhost:5000/api";
 
 export default function Delivery() {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export default function Delivery() {
         setLoading(false);
         return;
       }
-      const res = await fetch(`${API_BASE}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (data.ok) {
         const mapped = (data.data || []).map((a) => ({

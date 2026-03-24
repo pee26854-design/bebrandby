@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { API_BASE, getAuthHeaders, getCurrentUser } from "../utils/auth";
+import { API_URL, getAuthHeaders, getCurrentUser } from "../utils/auth";
 
 function parseJsonSafe(value) {
   if (!value) return {};
@@ -48,7 +48,7 @@ export default function Tracking() {
       try {
         setLoading(true);
         setError("");
-        const endpoint = isAdmin ? `${API_BASE}/orders` : `${API_BASE}/orders/me`;
+        const endpoint = isAdmin ? `${API_URL}/orders` : `${API_URL}/orders/me`;
         const res = await fetch(endpoint, { headers: { ...getAuthHeaders() } });
         const data = await res.json();
         if (!data.ok) {

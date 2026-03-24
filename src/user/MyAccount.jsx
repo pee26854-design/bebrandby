@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_BASE, getAuthHeaders, getCurrentUser } from "../utils/auth";
+import { API_URL, getAuthHeaders, getCurrentUser } from "../utils/auth";
 
 export default function MyAccount() {
   const [currentUser, setCurrentUser] = useState(() => getCurrentUser());
@@ -19,7 +19,7 @@ export default function MyAccount() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/users/me`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/users/me`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (!data.ok) {
         setError(data.message || "Failed to load profile");
@@ -54,7 +54,7 @@ export default function MyAccount() {
 
   async function saveProfile() {
     try {
-      const res = await fetch(`${API_BASE}/users/me`, {
+      const res = await fetch(`${API_URL}/users/me`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(user),

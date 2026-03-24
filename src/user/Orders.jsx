@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_BASE, getAuthHeaders, getCurrentUser } from "../utils/auth";
+import { API_URL, getAuthHeaders, getCurrentUser } from "../utils/auth";
 
 export default function Orders() {
   const STORAGE_KEYS = useMemo(
@@ -35,7 +35,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/orders/me`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/orders/me`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (!data.ok) {
         setError(data.message || "Failed to load orders");
@@ -110,7 +110,7 @@ export default function Orders() {
                     <div>
                       <div className="font-medium">{o.id}</div>
                       <div className="text-sm text-gray-500">
-                        {o.date} • ß{Number(o.total || 0).toLocaleString()}
+                        {o.date} ï¿½ ï¿½{Number(o.total || 0).toLocaleString()}
                       </div>
                     </div>
                     <div className="text-xs px-2 py-1 rounded-full bg-rose-50 text-rose-700">{o.status}</div>
@@ -121,12 +121,12 @@ export default function Orders() {
                     <ul className="text-sm text-gray-600">
                       {(o.items || []).map((item, idx) => (
                         <li key={`${o.id}-${idx}`}>
-                          {item.qty}x {item.name} • ß{Number(item.price || 0).toLocaleString()}
+                          {item.qty}x {item.name} ï¿½ ï¿½{Number(item.price || 0).toLocaleString()}
                         </li>
                       ))}
                     </ul>
                     <div className="text-xs text-gray-500 mt-2">
-                      Shipping: {o.shipping || "Standard"} • Tracking: {o.tracking || "Pending"}
+                      Shipping: {o.shipping || "Standard"} ï¿½ Tracking: {o.tracking || "Pending"}
                     </div>
                   </div>
 

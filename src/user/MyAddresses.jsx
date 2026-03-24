@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_BASE, getAuthHeaders, getCurrentUser } from "../utils/auth";
+import { API_URL, getAuthHeaders, getCurrentUser } from "../utils/auth";
 
 export default function MyAddresses() {
   const [currentUser, setCurrentUser] = useState(() => getCurrentUser());
@@ -20,7 +20,7 @@ export default function MyAddresses() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (!data.ok) {
         setError(data.message || "Failed to load addresses");
@@ -56,7 +56,7 @@ export default function MyAddresses() {
         address_text: newAddress.text,
         is_default: true,
       };
-      const res = await fetch(`${API_BASE}/users/me/addresses`, {
+      const res = await fetch(`${API_URL}/users/me/addresses`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(payload),
@@ -80,7 +80,7 @@ export default function MyAddresses() {
 
   async function removeAddress(id) {
     try {
-      await fetch(`${API_BASE}/users/me/addresses/${id}`, {
+      await fetch(`${API_URL}/users/me/addresses/${id}`, {
         method: "DELETE",
         headers: { ...getAuthHeaders() },
       });
@@ -98,7 +98,7 @@ export default function MyAddresses() {
     const address = addresses.find((a) => a.id === id);
     if (!address) return;
     try {
-      await fetch(`${API_BASE}/users/me/addresses/${id}`, {
+      await fetch(`${API_URL}/users/me/addresses/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify({ label: address.label, address_text: address.text, is_default: true }),

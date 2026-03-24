@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_BASE, getAuthHeaders, getCurrentUser } from "../utils/auth";
+import { API_URL, getAuthHeaders, getCurrentUser } from "../utils/auth";
 
 export default function LastOrder() {
   const STORAGE_KEYS = useMemo(
@@ -43,7 +43,7 @@ export default function LastOrder() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE}/orders/me`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/orders/me`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (!data.ok) {
         setError(data.message || "Failed to load orders");
@@ -128,12 +128,12 @@ export default function LastOrder() {
               </div>
               <div className="text-right">
                 <div className="text-sm text-gray-500">Total</div>
-                <div className="font-semibold">ß{Number(lastOrder.total || 0).toLocaleString()}</div>
+                <div className="font-semibold">ï¿½{Number(lastOrder.total || 0).toLocaleString()}</div>
               </div>
             </div>
 
             <div className="text-sm text-gray-600">
-              Date: {lastOrder.date || "-"} • Status: {lastOrder.status || "Processing"}
+              Date: {lastOrder.date || "-"} ï¿½ Status: {lastOrder.status || "Processing"}
             </div>
 
             <div className="border border-rose-100 rounded-xl p-4">
@@ -141,12 +141,12 @@ export default function LastOrder() {
               <ul className="text-sm text-gray-700 space-y-1">
                 {(lastOrder.items || []).map((item, idx) => (
                   <li key={`${lastOrder.id}-${idx}`}>
-                    {item.qty}x {item.name} • ß{Number(item.price || 0).toLocaleString()}
+                    {item.qty}x {item.name} ï¿½ ï¿½{Number(item.price || 0).toLocaleString()}
                   </li>
                 ))}
               </ul>
               <div className="text-xs text-gray-500 mt-3">
-                Shipping: {lastOrder.shipping || "Standard"} • Tracking: {lastOrder.tracking || "Pending"}
+                Shipping: {lastOrder.shipping || "Standard"} ï¿½ Tracking: {lastOrder.tracking || "Pending"}
               </div>
             </div>
 

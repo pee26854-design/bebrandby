@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { API_BASE, getAuthHeaders, getCurrentUser } from "../utils/auth";
+import { API_URL, getAuthHeaders, getCurrentUser } from "../utils/auth";
 
 export default function Dashboard() {
   const currentUser = getCurrentUser();
@@ -32,8 +32,8 @@ export default function Dashboard() {
         setLoading(true);
         const headers = { ...getAuthHeaders() };
         const [ordersRes, productsRes] = await Promise.all([
-          fetch(`${API_BASE}/orders`, { headers }),
-          fetch(`${API_BASE}/products`),
+          fetch(`${API_URL}/orders`, { headers }),
+          fetch(`${API_URL}/products`),
         ]);
         const ordersData = await ordersRes.json();
         const productsData = await productsRes.json();
@@ -107,7 +107,7 @@ export default function Dashboard() {
           qty: Number(it.qty || 0),
         })),
       };
-      const res = await fetch(`${API_BASE}/orders/${orderId}/items`, {
+      const res = await fetch(`${API_URL}/orders/${orderId}/items`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(payload),
@@ -121,7 +121,7 @@ export default function Dashboard() {
       setEditItems({});
       setError("");
 
-      const ordersRes = await fetch(`${API_BASE}/orders`, { headers: { ...getAuthHeaders() } });
+      const ordersRes = await fetch(`${API_URL}/orders`, { headers: { ...getAuthHeaders() } });
       const ordersData = await ordersRes.json();
       if (ordersData.ok) setOrders(ordersData.data || []);
     } catch (err) {
