@@ -1,3 +1,6 @@
+import express from "express";
+import cors from "cors";
+
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -11,6 +14,16 @@ const orderRoutes = require("./routes/orders");
 const emailRoutes = require("./routes/email");
 
 const app = express();
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://bebrandby.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
+app.use(express.json());
 const PORT = process.env.PORT || 5000;
 const ORIGIN = process.env.FRONTEND_ORIGIN || "*";
 

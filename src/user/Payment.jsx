@@ -99,17 +99,18 @@ export default function Payment() {
       },
     };
 
-    const orderRes = await fetch(`${API_URL}/orders`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", ...getAuthHeaders() },
-      body: JSON.stringify(apiPayload),
-    });
-    const orderData = await orderRes.json();
-    if (!orderData.ok) {
-      alert("Failed to create order");
-      setProcessing(false);
-      return;
-    }
+const orderRes = await fetch(`${ORDER_API_URL}/orders`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+  body: JSON.stringify(apiPayload),
+});
+
+const orderData = await orderRes.json();
+if (!orderData.ok) {
+  alert("Failed to create order");
+  setProcessing(false);
+  return;
+}
 
     const localOrderId = `ORD-${orderData.orderId}`;
     const localStatus = orderData.status || (method === "deposit" ? "Deposit Paid" : "Processing");
@@ -130,20 +131,20 @@ export default function Payment() {
     localStorage.setItem(LAST_ORDER_KEY, localOrderId);
     localStorage.removeItem(CART_KEY);
 
-    if (currentUser?.email) {
-     fetch(`${API_URL}/email`, {
+if (currentUser?.email) {
+  fetch(`${EMAIL_API_URL}/email`, {
     method: "POST",
     headers: { "Content-Type": "application/json", ...getAuthHeaders() },
     body: JSON.stringify({
-    toEmail: currentUser.email,
-    name: currentUser.name,
-    orderId: localOrderId,
-    totalPrice,
-    depositAmount,
-    remainingAmount,
-  }),
-});
-    }
+      toEmail: currentUser.email,
+      name: currentUser.name,
+      orderId: localOrderId,
+      totalPrice,
+      depositAmount,
+      remainingAmount,
+    }),
+  }).catch(() => {});
+}
 
     setTimeout(() => {
       setProcessing(false);
