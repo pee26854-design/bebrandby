@@ -35,7 +35,7 @@ export default function Orders() {
 
     try {
       setLoading(true);
-      const res = await import(`${API_URL}/orders/me`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/orders/me`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (!data.ok) {
         setError(data.message || "Failed to load orders");

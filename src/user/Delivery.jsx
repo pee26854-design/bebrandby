@@ -39,7 +39,7 @@ export default function Delivery() {
         setLoading(false);
         return;
       }
-      const res = await import(`${API_URL}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
+      const res = await fetch(`${API_URL}/users/me/addresses`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (data.ok) {
         const mapped = (data.data || []).map((a) => ({
