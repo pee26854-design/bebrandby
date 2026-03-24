@@ -32,8 +32,8 @@ export default function Dashboard() {
         setLoading(true);
         const headers = { ...getAuthHeaders() };
         const [ordersRes, productsRes] = await Promise.all([
-          fetch(`${API_URL}/orders`, { headers }),
-          fetch(`${API_URL}/products`),
+          import(`${API_URL}/orders`, { headers }),
+          import(`${API_URL}/products`, { headers }),
         ]);
         const ordersData = await ordersRes.json();
         const productsData = await productsRes.json();
@@ -107,7 +107,7 @@ export default function Dashboard() {
           qty: Number(it.qty || 0),
         })),
       };
-      const res = await fetch(`${API_URL}/orders/${orderId}/items`, {
+      const res = await import(`${API_URL}/orders/${orderId}/items`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(payload),
@@ -121,7 +121,7 @@ export default function Dashboard() {
       setEditItems({});
       setError("");
 
-      const ordersRes = await fetch(`${API_URL}/orders`, { headers: { ...getAuthHeaders() } });
+      const ordersRes = await import(`${API_URL}/orders`, { headers: { ...getAuthHeaders() } });
       const ordersData = await ordersRes.json();
       if (ordersData.ok) setOrders(ordersData.data || []);
     } catch (err) {

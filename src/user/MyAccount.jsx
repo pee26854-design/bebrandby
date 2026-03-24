@@ -19,7 +19,7 @@ export default function MyAccount() {
 
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/users/me`, { headers: { ...getAuthHeaders() } });
+      const res = await import(`${API_URL}/users/me`, { headers: { ...getAuthHeaders() } });
       const data = await res.json();
       if (!data.ok) {
         setError(data.message || "Failed to load profile");
@@ -54,7 +54,7 @@ export default function MyAccount() {
 
   async function saveProfile() {
     try {
-      const res = await fetch(`${API_URL}/users/me`, {
+      const res = await import(`${API_URL}/users/me`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(user),

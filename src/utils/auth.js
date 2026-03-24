@@ -32,7 +32,7 @@ export function getAuthHeaders() {
 
 export async function registerUser(payload) {
   try {
-    const res = await fetch(`${API_URL}/auth/register`, {
+    const res = await import(`${API_URL}/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
@@ -49,7 +49,7 @@ export async function registerUser(payload) {
 
 export async function loginUser({ usernameOrEmail, password }) {
   try {
-    const res = await fetch(`${API_URL}/auth/login`, {
+    const res = await import(`${API_URL}/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ usernameOrEmail, password }),

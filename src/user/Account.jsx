@@ -51,9 +51,9 @@ export default function Account() {
         const headers = { ...getAuthHeaders() };
 
         const [profileRes, addressRes, ordersRes] = await Promise.allSettled([
-          fetchJsonWithTimeout(`${API_URL}/users/me`, { headers }),
-          fetchJsonWithTimeout(`${API_URL}/users/me/addresses`, { headers }),
-          fetchJsonWithTimeout(`${API_URL}/orders/me`, { headers }),
+          importJsonWithTimeout(`${API_URL}/users/me`, { headers }),
+          importJsonWithTimeout(`${API_URL}/users/me/addresses`, { headers }),
+          importJsonWithTimeout(`${API_URL}/orders/me`, { headers }),
         ]);
 
         const profile = profileRes.status === "fulfilled" ? profileRes.value : { ok: false };
@@ -138,7 +138,7 @@ export default function Account() {
 
   async function saveProfile() {
     try {
-      const res = await fetch(`${API_URL}/users/me`, {
+      const res = await import(`${API_URL}/users/me`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", ...getAuthHeaders() },
         body: JSON.stringify(user),
@@ -162,7 +162,7 @@ export default function Account() {
       address_text: newAddress.text,
       is_default: true,
     };
-    const res = await fetch(`${API_URL}/users/me/addresses`, {
+    const res = await import(`${API_URL}/users/me/addresses`, {
       method: "POST",
       headers: { "Content-Type": "application/json", ...getAuthHeaders() },
       body: JSON.stringify(payload),
@@ -179,7 +179,7 @@ export default function Account() {
   }
 
   async function removeAddress(id) {
-    await fetch(`${API_URL}/users/me/addresses/${id}`, {
+    await import(`${API_URL}/users/me/addresses/${id}`, {
       method: "DELETE",
       headers: { ...getAuthHeaders() },
     });
@@ -193,7 +193,7 @@ export default function Account() {
   async function setDefaultAddress(id) {
     const address = addresses.find((a) => a.id === id);
     if (!address) return;
-    await fetch(`${API_URL}/users/me/addresses/${id}`, {
+    await import(`${API_URL}/users/me/addresses/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json", ...getAuthHeaders() },
       body: JSON.stringify({ label: address.label, address_text: address.text, is_default: true }),
