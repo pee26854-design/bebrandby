@@ -7,8 +7,8 @@ const CART_KEY = "bbb_cart";
 const DELIVERY_KEY = "bbb_delivery";
 const ORDERS_KEY = "bbb_orders";
 const LAST_ORDER_KEY = "bbb_last_order_id";
-const EMAIL_API_URL = "https://bebrandby-backend.onrender.com/api/send-email";
-const ORDER_API_URL = "https://bebrandby-backend.onrender.com/api/orders";
+const EMAIL_API_URL = "https://bebrandby-backend.onrender.com/api";
+const ORDER_API_URL = "https://bebrandby-backend.onrender.com/api";
 
 function loadCart() {
   const raw = localStorage.getItem(CART_KEY);

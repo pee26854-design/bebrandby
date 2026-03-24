@@ -61,7 +61,7 @@ export default function Account() {
         const ordersData = ordersRes.status === "fulfilled" ? ordersRes.value : { ok: false };
 
         if (!profile.ok && !addressData.ok && !ordersData.ok) {
-          setError("Unable to load account data. Please check API server on localhost:5000.");
+          setError("Unable to load account data. Please check API server on https://bebrandby-backend.onrender.com/api.");
           setUser({
             name: currentUser?.name || "",
             phone: currentUser?.phone || "",
