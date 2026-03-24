@@ -1,7 +1,7 @@
-﻿const express = require("express");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const pool = require("../db");
+﻿import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import pool from "../db.js"; // ⚠️ ต้องมี .js
 
 const router = express.Router();
 
@@ -11,7 +11,6 @@ async function findLoginUser(usernameOrEmail) {
     [usernameOrEmail, usernameOrEmail]
   );
   if (userRows.length) return userRows[0];
-
   return null;
 }
 
@@ -38,6 +37,7 @@ router.post("/register", async (req, res) => {
 
     const user = { id: result.insertId, name, username, email, phone: phone || null, role: "member" };
     const token = jwt.sign(user, process.env.JWT_SECRET || "dev_secret", { expiresIn: "7d" });
+
     return res.json({ ok: true, user, token });
   } catch (err) {
     console.error("Register failed:", err);
@@ -66,7 +66,9 @@ router.post("/login", async (req, res) => {
       phone: userRow.phone,
       role: userRow.role,
     };
+
     const token = jwt.sign(user, process.env.JWT_SECRET || "dev_secret", { expiresIn: "7d" });
+
     return res.json({ ok: true, user, token });
   } catch (err) {
     console.error("Login failed:", err);
@@ -74,4 +76,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
